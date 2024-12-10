@@ -6,6 +6,7 @@ import {
   FormGroup,
   FormsModule,
   Validators,
+  FormControl,
 } from '@angular/forms';
 import {
   IonContent,
@@ -14,6 +15,7 @@ import {
   IonToolbar,
 } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login-register',
@@ -34,30 +36,24 @@ import { RouterLink } from '@angular/router';
 export class LoginRegisterPage implements OnInit {
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-    this.registerForm = this.fb.group(
+  constructor(private fb: FormBuilder, private userService: UserService) {
+    this.registerForm = new FormGroup(
       {
-        username: ['', [Validators.required, Validators.minLength(3)]],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(6)]],
-        confirmPassword: ['', [Validators.required]],
+      
+        email: new FormControl(),
+        password: new FormControl(),
+        confirmPassword: new FormControl(),
       },
-      { validators: this.passwordMatchValidator }
     );
   }
 
   ngOnInit() {}
 
-  passwordMatchValidator(group: FormGroup): { [key: string]: boolean } | null {
-    const password = group.get('password')?.value;
-    const confirmPassword = group.get('confirmPassword')?.value;
-    return password === confirmPassword ? null : { mismatch: true };
-  }
+ 
 
   onSubmit(): void {
     if (this.registerForm.valid) {
-      console.log('Formulario de Registro:', this.registerForm.value);
-      // Aquí puedes agregar lógica adicional para procesar el registro
+      this.userService.register(this.registerForm.value)
     }
   }
 }

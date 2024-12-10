@@ -2,9 +2,9 @@
   <h1>Iniciar Sesión</h1>
   <form [formGroup]="login" (ngSubmit)="onSubmit()">
     <input
-      type="text"
-      formControlName="username"
-      placeholder="Usuario"
+      type="email"
+      formControlName="email"
+      placeholder="email"
       required
     />
     <input

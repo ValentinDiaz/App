@@ -2,12 +2,6 @@
   <h1>Regístrate</h1>
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <input
-      type="text"
-      formControlName="username"
-      placeholder="Usuario"
-      required
-    />
-    <input
       type="email"
       formControlName="email"
       placeholder="Correo Electrónico"
@@ -21,7 +15,7 @@
     />
     <input
       type="password"
-      formControlName="confirmPassword"
+      formControlName="confirmarPassword"
       placeholder="Confirma Contraseña"
       required
     />

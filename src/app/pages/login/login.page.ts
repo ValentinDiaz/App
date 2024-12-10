@@ -13,6 +13,7 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar, IonRouterOutlet } from '@ionic/angular/standalone';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -33,17 +34,17 @@ import {
 export class LoginPage implements OnInit {
   login: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,private UserService: UserService) {
     this.login = this.fb.group({
-      username: ['', [Validators.required]],
+      email: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
   }
 
   onSubmit(): void {
     if (this.login.valid) {
-      const { username, password } = this.login.value;
-      console.log('Usuario:', username, 'Contraseña:', password);
+      const { email, password } = this.login.value;
+      
     }
   }
 
