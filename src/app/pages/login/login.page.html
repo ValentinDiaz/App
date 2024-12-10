@@ -1,0 +1,21 @@
+<div class="login-container">
+  <h1>Iniciar Sesión</h1>
+  <form [formGroup]="login" (ngSubmit)="onSubmit()">
+    <input
+      type="text"
+      formControlName="username"
+      placeholder="Usuario"
+      required
+    />
+    <input
+      type="password"
+      formControlName="password"
+      placeholder="Contraseña"
+      required
+    />
+    <button type="submit" [disabled]="!login.valid">Ingresar</button>
+  </form>
+  <button class="register-link" [routerLink]="['/login-register']">¿No tienes cuenta?</button>
+</div>
+
+    
