@@ -15,7 +15,7 @@ import {
   IonToolbar,
 } from '@ionic/angular/standalone';
 import { Router, RouterLink } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
+import { authService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login-register',
@@ -38,7 +38,7 @@ export class LoginRegisterPage implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService,
+    private authService: authService,
     private router: Router
   ) {
     this.registerForm = new FormGroup({
@@ -52,7 +52,7 @@ export class LoginRegisterPage implements OnInit {
 
   onSubmit(): void {
     if (this.registerForm.valid) {
-      this.userService
+      this.authService
         .register(this.registerForm.value)
         .then((Response) => {
           console.log(Response);

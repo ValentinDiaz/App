@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-} from '@ionic/angular/standalone';
-import { UserService } from 'src/app/services/user.service';
+import { authService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { SidebarComponent } from 'src/app/componentes/side-bar/side-bar.component'; 
 
 @Component({
   selector: 'app-home',
@@ -16,21 +12,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.page.scss'],
   standalone: true,
   imports: [
-    IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
+    SidebarComponent,
+    IonicModule, 
     CommonModule,
     FormsModule,
+    
   ],
 })
 export class HomePage implements OnInit {
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private authService: authService, private router: Router) {}
 
   ngOnInit() {}
 
   logOut() {
-    this.userService.logOut().then(() => {
+    this.authService.logOut().then(() => {
       this.router.navigate(['/login']);
     })
     .catch(error => console.log(error));

@@ -13,20 +13,16 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
-  IonRouterOutlet, IonButton, IonIcon } from '@ionic/angular/standalone';
-import { UserService } from 'src/app/services/user.service';
+  IonRouterOutlet, IonButton, IonIcon, 
+  LoadingController} from '@ionic/angular/standalone';
+import { authService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonIcon, IonButton, 
-    IonRouterOutlet,
-    IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
+  imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -35,11 +31,13 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginPage implements OnInit {
   loginForm: FormGroup;
+  errorMessage: string | undefined;
 
   constructor(
     private fb: FormBuilder,
-    private UserService: UserService,
-    private router: Router
+    private authService: authService,
+    private router: Router,
+    private loadingController: LoadingController
   ) {
     this.loginForm = new FormGroup({
       email: new FormControl(),
@@ -47,20 +45,31 @@ export class LoginPage implements OnInit {
     });
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.loginForm.valid) {
-      this.UserService.login(this.loginForm.value)
-        .then((response) => {
-          console.log(response)
+      const loading = await this.loadingController.create({
+        message: 'Iniciando sesión...',
+      });
+      await loading.present();
 
+      this.authService.login(this.loginForm.value)
+        .then((response) => {
+          console.log(response);
           this.router.navigate(['/home']);
+          loading.dismiss();
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          console.log(error);
+          this.errorMessage = 'Credenciales incorrectas. Intenta nuevamente.'; // Mostrar mensaje de error
+          loading.dismiss();
+        });
+    } else {
+      this.errorMessage = 'Por favor, ingresa un correo y contraseña válidos.';
     }
   }
 
   signInWithGoogle() {
-    this.UserService.loginWithGoogle()
+    this.authService.loginWithGoogle()
       .then((response) => {
         console.log(response)
         this.router.navigate(['/home']);
