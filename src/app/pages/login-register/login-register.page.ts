@@ -14,7 +14,7 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/angular/standalone';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -30,30 +30,35 @@ import { UserService } from 'src/app/services/user.service';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
   ],
 })
 export class LoginRegisterPage implements OnInit {
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
-    this.registerForm = new FormGroup(
-      {
-      
-        email: new FormControl(),
-        password: new FormControl(),
-        confirmPassword: new FormControl(),
-      },
-    );
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private router: Router
+  ) {
+    this.registerForm = new FormGroup({
+      email: new FormControl(),
+      password: new FormControl(),
+      confirmarPassword: new FormControl(),
+    });
   }
 
   ngOnInit() {}
 
- 
-
   onSubmit(): void {
     if (this.registerForm.valid) {
-      this.userService.register(this.registerForm.value)
+      this.userService
+        .register(this.registerForm.value)
+        .then((Response) => {
+          console.log(Response);
+          this.router.navigate(['/login']);
+        })
+        .catch((error) => console.log(error));
     }
   }
 }

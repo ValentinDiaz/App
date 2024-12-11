@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {
   ReactiveFormsModule,
   FormBuilder,
   FormGroup,
   FormsModule,
-  Validators,
+  FormControl,
 } from '@angular/forms';
 import {
   IonContent,
   IonHeader,
   IonTitle,
-  IonToolbar, IonRouterOutlet } from '@ionic/angular/standalone';
+  IonToolbar,
+  IonRouterOutlet, IonButton, IonIcon } from '@ionic/angular/standalone';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -20,7 +21,8 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonRouterOutlet, 
+  imports: [IonIcon, IonButton, 
+    IonRouterOutlet,
     IonContent,
     IonHeader,
     IonTitle,
@@ -32,20 +34,39 @@ import { UserService } from 'src/app/services/user.service';
   ],
 })
 export class LoginPage implements OnInit {
-  login: FormGroup;
+  loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder,private UserService: UserService) {
-    this.login = this.fb.group({
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required]],
+  constructor(
+    private fb: FormBuilder,
+    private UserService: UserService,
+    private router: Router
+  ) {
+    this.loginForm = new FormGroup({
+      email: new FormControl(),
+      password: new FormControl(),
     });
   }
 
   onSubmit(): void {
-    if (this.login.valid) {
-      const { email, password } = this.login.value;
-      
+    if (this.loginForm.valid) {
+      this.UserService.login(this.loginForm.value)
+        .then((response) => {
+          console.log(response)
+
+          this.router.navigate(['/home']);
+        })
+        .catch((error) => console.log(error));
     }
+  }
+
+  signInWithGoogle() {
+    this.UserService.loginWithGoogle()
+      .then((response) => {
+        console.log(response)
+        this.router.navigate(['/home']);
+
+      })
+      .catch((error) => console.log(error));
   }
 
   ngOnInit() {}
