@@ -1,3 +1,5 @@
+import { AlertButton } from "@ionic/angular";
+
 export interface Usuario {
     id?: string;             // Identificador único del usuario
     nombre: string;          // Nombre del usuario
@@ -10,3 +12,5 @@ export interface Usuario {
     planSuscripcion?: 'básico' | 'premium' | 'vip';  // Plan de suscripción (opcional)
     historialPagos?: Array<{ fecha: string, monto: number }>; // Historial de pagos (opcional)
 }
+
+
