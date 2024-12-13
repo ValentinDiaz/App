@@ -8,12 +8,8 @@ import {
   Validators,
   FormControl,
 } from '@angular/forms';
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-} from '@ionic/angular/standalone';
+import { IonicModule } from '@ionic/angular';
+
 import { Router, RouterLink } from '@angular/router';
 import { authService } from 'src/app/services/auth.service';
 
@@ -23,10 +19,7 @@ import { authService } from 'src/app/services/auth.service';
   styleUrls: ['./login-register.page.scss'],
   standalone: true,
   imports: [
-    IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
+    IonicModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,

@@ -1,4 +1,4 @@
-<div class="login-container">
+<!-- <div class="login-container">
   <h1>Iniciar Sesión</h1>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <input
@@ -22,7 +22,77 @@
 </div>
 <div *ngIf="errorMessage" style="color: red; text-align: center;">
   {{ errorMessage }}
-</div>
+</div> -->
 
+<ion-content class="ion-padding login-background">
+  <div class="login-container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title class="ion-text-center">Iniciar Sesión</ion-card-title>
+      </ion-card-header>
 
-    
+      <ion-card-content>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <ion-item>
+            <ion-label position="floating">Correo Electrónico</ion-label>
+            <ion-input type="email" formControlName="email" placeholder="Correo Electrónico"></ion-input>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+          >
+            <small>Introduce un correo válido</small>
+          </ion-text>
+
+          <ion-item>
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input type="password" formControlName="password" placeholder="Contraseña"></ion-input>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+          >
+            <small>La contraseña debe tener al menos 6 caracteres</small>
+          </ion-text>
+
+          <div class="ion-padding auth-buttons">
+            <ion-button
+              expand="block"
+              type="submit"
+              [disabled]="loginForm.invalid"
+              class="email-login-button"
+            >
+              Iniciar Sesión
+            </ion-button>
+          </div>
+        </form>
+
+        <div class="ion-text-center alternative-auth">
+          <div class="separator">
+            <span>O</span>
+          </div>
+
+          <ion-button
+            expand="block"
+            fill="outline"
+            color="secondary"
+            (click)="signInWithGoogle()"
+            class="google-login-button"
+          >
+            <ion-icon name="logo-google" slot="start"></ion-icon>
+            Iniciar sesión con Google
+          </ion-button>
+
+          <div class="register-section">
+            <ion-button
+              fill="clear"
+              color="primary"
+              [routerLink]="['/login-register']"
+              >Registrate</ion-button
+            >
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

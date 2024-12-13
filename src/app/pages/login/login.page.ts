@@ -7,13 +7,12 @@ import {
   FormGroup,
   FormsModule,
   FormControl,
+  Validators,
 } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+
 import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonRouterOutlet, IonButton, IonIcon, 
+   
   LoadingController} from '@ionic/angular/standalone';
 import { authService } from 'src/app/services/auth.service';
 
@@ -27,21 +26,23 @@ import { authService } from 'src/app/services/auth.service';
     FormsModule,
     ReactiveFormsModule,
     RouterLink,
+    IonicModule
   ],
 })
 export class LoginPage implements OnInit {
   loginForm: FormGroup;
   errorMessage: string | undefined;
+  
 
   constructor(
-    private fb: FormBuilder,
+    private formBuilder: FormBuilder,
     private authService: authService,
     private router: Router,
     private loadingController: LoadingController
   ) {
-    this.loginForm = new FormGroup({
-      email: new FormControl(),
-      password: new FormControl(),
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
