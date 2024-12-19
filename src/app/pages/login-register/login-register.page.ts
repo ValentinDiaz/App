@@ -35,11 +35,20 @@ export class LoginRegisterPage implements OnInit {
     private router: Router
   ) {
     this.registerForm = new FormGroup({
-      email: new FormControl(),
-      password: new FormControl(),
-      confirmarPassword: new FormControl(),
-    });
+      nombre: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      apellido: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      confirmarPassword: new FormControl('', [Validators.required]),
+      role: new FormControl('', [Validators.required]),
+      telefono: new FormControl('', [Validators.required]),
+
+
+    })
   }
+
+
+  
 
   ngOnInit() {}
 

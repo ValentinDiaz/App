@@ -1,4 +1,4 @@
-<ion-content class="ion-padding register-background">
+<!-- <ion-content class="ion-padding register-background">
   <div class="register-container">
     <ion-card>
       <ion-card-header>
@@ -88,4 +88,144 @@
       </ion-card-content>
     </ion-card>
   </div>
+</ion-content> -->
+
+<ion-content class="ion-padding register-background">
+  <div class="register-container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title class="ion-text-center">Regístrate</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        
+          <!-- Email -->
+          <ion-item>
+            <ion-label position="floating">Correo Electrónico</ion-label>
+            <ion-input
+              type="email"
+              formControlName="email"
+              placeholder="Correo Electrónico"
+              required
+            ></ion-input>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+          >
+            <small>Introduce un correo válido</small>
+          </ion-text>
+
+          <!-- Nombre -->
+          <ion-item>
+            <ion-label position="floating">Nombre</ion-label>
+            <ion-input
+              type="text"
+              formControlName="nombre"
+              placeholder="Nombre"
+              required
+            ></ion-input>
+          </ion-item>
+
+          <!-- Apellido -->
+          <ion-item>
+            <ion-label position="floating">Apellido</ion-label>
+            <ion-input
+              type="text"
+              formControlName="apellido"
+              placeholder="Apellido"
+              required
+            ></ion-input>
+          </ion-item>
+
+          <!-- Role -->
+          <ion-item>
+            <ion-label position="floating">Rol</ion-label>
+            <ion-select formControlName="role" placeholder="Selecciona un rol" required>
+              <ion-select-option value="admin">Admin</ion-select-option>
+              <ion-select-option value="user">Usuario</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <!-- Teléfono -->
+          <ion-item>
+            <ion-label position="floating">Teléfono</ion-label>
+            <ion-input
+              type="tel"
+              formControlName="telefono"
+              placeholder="Teléfono"
+              required
+            ></ion-input>
+          </ion-item>
+
+          <!-- Contraseña -->
+          <ion-item>
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input
+              type="password"
+              formControlName="password"
+              placeholder="Contraseña"
+              required
+            ></ion-input>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+          >
+            <small>La contraseña debe tener al menos 6 caracteres</small>
+          </ion-text>
+
+          <!-- Confirmar Contraseña -->
+          <ion-item>
+            <ion-label position="floating">Confirma Contraseña</ion-label>
+            <ion-input
+              type="password"
+              formControlName="confirmarPassword"
+              placeholder="Confirma Contraseña"
+              required
+            ></ion-input>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="registerForm.get('confirmarPassword')?.invalid && registerForm.get('confirmarPassword')?.touched"
+          >
+            <small>Las contraseñas no coinciden</small>
+          </ion-text>
+
+          <!-- Submit Button -->
+          <div class="ion-padding auth-buttons">
+            <ion-button
+              expand="block"
+              type="submit"
+              [disabled]="!registerForm.valid"
+              class="register-button"
+            >
+              Registrar
+            </ion-button>
+          </div>
+        </form>
+
+        <!-- Alternative Auth Options -->
+        <div class="ion-text-center alternative-auth">
+          <div class="separator">
+            <span>O</span>
+          </div>
+          <div class="login-section">
+            <ion-button
+              fill="clear"
+              color="primary"
+              [routerLink]="['/login']"
+            >
+              ¿Ya tienes cuenta?
+            </ion-button>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
+
+
+
+
