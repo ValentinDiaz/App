@@ -7,6 +7,7 @@ export interface Usuario {
     apellido:string;      
     role: string;  
     telefono:string;     
+
 }
 
 

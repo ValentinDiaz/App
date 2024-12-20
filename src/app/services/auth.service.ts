@@ -24,7 +24,7 @@ export class authService {
     private usuarioService: UsuarioService
   ) {}
 
-  async register({ email, password, ...userData }: any) {
+  async registerUser({ email, password, ...userData }: any) {
     try {
       // Crear usuario en Firebase Auth
       const userCredential = await createUserWithEmailAndPassword(
@@ -59,6 +59,11 @@ export class authService {
       console.error('Error durante el registro:', error);
       throw error;
     }
+  }
+
+  async registerGym(gimnasioData: any) {
+    await this.usuarioService.addGimnasio(gimnasioData);
+    console.log('Datos del usuario almacenados en Firestore');
   }
 
   async login({ email, password }: any) {

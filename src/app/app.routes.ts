@@ -21,4 +21,8 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/home/home.page').then(m => m.HomePage),
     ...canActivate(() => redirectUnauthorizedTo(['login'])), // Protege la ruta y redirige al login si no está autenticado
   },
+  {
+    path: 'gym-register',
+    loadComponent: () => import('./pages/gym-register/gym-register.page').then( m => m.GymRegisterPage)
+  },
 ];

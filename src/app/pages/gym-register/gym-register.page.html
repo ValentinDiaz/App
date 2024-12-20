@@ -1,0 +1,73 @@
+<ion-content class="ion-padding register-background">
+  <div class="register-container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title class="ion-text-center">Registra tu Gimnasio</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form [formGroup]="gimnasioForm" (ngSubmit)="crearGimnasio()">
+          <!-- Campo de nombre del gimnasio -->
+          <ion-item>
+            <ion-label position="floating">Nombre del Gimnasio</ion-label>
+            <ion-input 
+              type="text" 
+              placeholder="Nombre del Gimnasio" 
+              formControlName="nombre">
+            </ion-input>
+          </ion-item>
+
+          <!-- Campo de ubicación -->
+          <ion-item>
+            <ion-label position="floating">Ubicación</ion-label>
+            <ion-input 
+              type="text" 
+              placeholder="Ubicación del Gimnasio" 
+              formControlName="direccion">
+            </ion-input>
+          </ion-item>
+
+          <!-- Campo de teléfono -->
+          <ion-item>
+            <ion-label position="floating">Teléfono</ion-label>
+            <ion-input 
+              type="text" 
+              placeholder="Número de teléfono" 
+              formControlName="telefono">
+            </ion-input>
+          </ion-item>
+
+          <!-- Campo de correo electrónico -->
+          <ion-item>
+            <ion-label position="floating">Correo Electrónico</ion-label>
+            <ion-input 
+              type="email" 
+              placeholder="Correo Electrónico" 
+              formControlName="email">
+            </ion-input>
+          </ion-item>
+
+          <!-- Botón de registro -->
+          <div class="ion-padding">
+            <ion-button expand="block" type="submit" [disabled]="!gimnasioForm.valid">Registrar Gimnasio</ion-button>
+          </div>
+        </form>
+
+        <div class="ion-text-center alternative-auth">
+          <div class="separator">
+            <span>O</span>
+          </div>
+
+          <div class="register-section">
+            <ion-button
+              fill="clear"
+              color="primary"
+              [routerLink]="['/login']">
+              ¿Ya tienes cuenta?
+            </ion-button>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

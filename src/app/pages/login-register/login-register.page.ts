@@ -55,7 +55,7 @@ export class LoginRegisterPage implements OnInit {
   onSubmit(): void {
     if (this.registerForm.valid) {
       this.authService
-        .register(this.registerForm.value)
+        .registerUser(this.registerForm.value)
         .then((Response) => {
           console.log(Response);
           this.router.navigate(['/login']);
