@@ -27,4 +27,9 @@ export class UsuarioService{
         return collectionData(usuarioRef, {idField:'uid'}) as Observable<Usuario[]>;
 
     }
+    getGimansios():Observable<Gimnasio[]>{
+        const gymRef = collection(this.firestore, 'gimnasios');
+        return collectionData(gymRef, {idField:'uid'}) as Observable<Gimnasio[]>;
+
+    }
 }

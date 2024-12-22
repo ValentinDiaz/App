@@ -12,6 +12,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { Router, RouterLink } from '@angular/router';
 import { authService } from 'src/app/services/auth.service';
+import { Gimnasio } from 'src/app/interfaces/gym.interface';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-login-register',
@@ -28,11 +30,13 @@ import { authService } from 'src/app/services/auth.service';
 })
 export class LoginRegisterPage implements OnInit {
   registerForm: FormGroup;
+  gimnasios: Gimnasio[] | undefined;
 
   constructor(
     private fb: FormBuilder,
     private authService: authService,
-    private router: Router
+    private router: Router,
+    private usuarioService: UsuarioService
   ) {
     this.registerForm = new FormGroup({
       nombre: new FormControl('', [Validators.required, Validators.minLength(2)]),
@@ -42,15 +46,19 @@ export class LoginRegisterPage implements OnInit {
       confirmarPassword: new FormControl('', [Validators.required]),
       role: new FormControl('', [Validators.required]),
       telefono: new FormControl('', [Validators.required]),
-
-
     })
   }
 
 
+
+
   
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.usuarioService.getGimansios().subscribe(gimnasios=>{
+      this.gimnasios=gimnasios;
+    })
+  }
 
   onSubmit(): void {
     if (this.registerForm.valid) {
