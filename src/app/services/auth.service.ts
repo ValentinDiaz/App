@@ -8,10 +8,11 @@ import {
   GoogleAuthProvider,
   sendEmailVerification,
 } from '@angular/fire/auth';
-import { doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
+import { addDoc, collection, doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { Usuario } from '../interfaces/usuario.iterface';
 import { UsuarioService } from './usuario.service';
+
 
 @Injectable({
   providedIn: 'root',
@@ -123,4 +124,6 @@ export class authService {
     }
     return false; // Si no es admin, devuelve false
   }
+
+ 
 }

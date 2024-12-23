@@ -46,6 +46,8 @@ export class LoginRegisterPage implements OnInit {
       confirmarPassword: new FormControl('', [Validators.required]),
       role: new FormControl('', [Validators.required]),
       telefono: new FormControl('', [Validators.required]),
+      gimnasio: new FormControl('', [Validators.required]), // Nuevo campo para gimnasio
+
     })
   }
 
@@ -60,15 +62,47 @@ export class LoginRegisterPage implements OnInit {
     })
   }
 
+  // onSubmit(): void {
+  //   if (this.registerForm.valid) {
+  //     this.authService
+  //       .registerUser(this.registerForm.value)
+  //       .then((Response) => {
+  //         console.log(Response);
+  //         this.router.navigate(['/login']);
+  //       })
+  //       .catch((error) => console.log(error));
+  //   }
+  // }
+
   onSubmit(): void {
     if (this.registerForm.valid) {
+      const usuarioData = this.registerForm.value;
+  
+      // Registrar el usuario en Firebase
       this.authService
-        .registerUser(this.registerForm.value)
-        .then((Response) => {
-          console.log(Response);
-          this.router.navigate(['/login']);
+        .registerUser(usuarioData)
+        .then((response) => {
+          console.log('Usuario registrado:', response);
+  
+          // Guardar el usuario en la subcolección de gimnasios
+          const gimnasioId = usuarioData.gimnasio;
+          const usuario = {
+            nombre: usuarioData.nombre,
+            apellido: usuarioData.apellido,
+            email: usuarioData.email,
+            telefono: usuarioData.telefono,
+            role: usuarioData.role,
+          };
+  
+          this.usuarioService
+            .agregarUsuarioAlGimnasio(gimnasioId, usuario)
+            .then(() => {
+              console.log('Usuario agregado al gimnasio:', gimnasioId);
+              this.router.navigate(['/login']);
+            })
+            .catch((error) => console.error('Error al agregar usuario al gimnasio:', error));
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.error('Error al registrar usuario:', error));
     }
   }
 }

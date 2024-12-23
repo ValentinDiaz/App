@@ -32,4 +32,9 @@ export class UsuarioService{
         return collectionData(gymRef, {idField:'uid'}) as Observable<Gimnasio[]>;
 
     }
+
+    agregarUsuarioAlGimnasio(gimnasioId: string, usuario: any) {
+        const usuariosRef = collection(this.firestore, `gimnasios/${gimnasioId}/usuarios`);
+        return addDoc(usuariosRef, usuario);
+      }
 }

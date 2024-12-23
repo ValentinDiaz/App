@@ -150,7 +150,7 @@
 
           <ion-item>
             <ion-label position="floating">Gimnasio</ion-label>
-            <ion-select formControlName="role" placeholder="Selecciona un gimnasio" required>
+            <ion-select formControlName="gimnasio" placeholder="Selecciona un gimnasio" required>
               <ion-select-option *ngFor="let gimnasio of gimnasios" [value]="gimnasio.uid">
                 {{ gimnasio.nombre }}
               </ion-select-option>
